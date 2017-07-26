@@ -1,19 +1,3 @@
-### 1. Create an API
-
-# For this challenge clone [Storedom](https://github.com/turingschool-examples/storedom).
-
-# We need an API for the application that can both read and write data. Start by focusing on functionality for items. All of this should happen in a dedicated, versioned controller.
-
-# When I send a GET request to `/api/v1/items`
-# I receive a 200 JSON response containing all items
-# And each item has an id, name, description, and image_url but not the created_at or updated_at
-
-# When I send a GET request to `/api/v1/items/1`
-# I receive a 200 JSON response containing the id, name, description, and image_url but not the created_at or updated_at
-
-# When I send a DELETE request to `/api/v1/items/1`
-# I receive a 204 JSON response if the record is successfully deleted
-
 # When I send a POST request to `/api/v1/items` with a name, description, and image_url
 # I receive a 201 JSON  response if the record is successfully created
 # And I receive a JSON response containing the id, name, description, and image_url but not the created_at or updated_at
@@ -43,10 +27,10 @@ describe 'Items API' do
     end
   end
 
-  context 'GET /api/v1/items/1' do
+  context 'GET /api/v1/items/:id' do
     it 'sends one item' do
       create(:item)
-      get '/api/v1/items/1.json'
+      get '/api/v1/items/1'
 
       expect(response).to be_success
 
@@ -58,6 +42,16 @@ describe 'Items API' do
       expect(item).to have_key('image_url')
       expect(item).to_not have_key('created_at')
       expect(item).to_not have_key('updated_at')
+    end
+  end
+
+  context 'DELETE /api/v1/items/:id' do
+    it 'deletes the item requested' do
+      item = create(:item)
+
+      delete "/api/v1/items/#{item.id}"
+
+      response.code.should eql('204')
     end
   end
 end
