@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+ruby '2.3.4'
+
 gem "rails", "4.1.4"
 gem "sqlite3"
 gem "sass-rails", "~> 4.0.3"
@@ -15,10 +17,16 @@ gem "minitest-rails"
 
 group :development do
   gem "spring"
-  gem 'rspec-rails'
 end
 
 group :development, :test do
   gem "minitest-rails-capybara"
+  gem 'figaro'
   gem "pry", :require => "pry"
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'shoulda-matchers'
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'pry-rails'
 end
