@@ -38,15 +38,15 @@ describe 'Items API' do
       expect(item).to have_key('name')
       expect(item).to have_key('description')
       expect(item).to have_key('image_url')
-      expect(item).to not_have_key('created_at')
-      expect(item).to not_have_key('updated_at')
+      expect(item).to_not have_key('created_at')
+      expect(item).to_not have_key('updated_at')
     end
   end
 
   context 'GET /api/v1/items/1' do
     it 'sends one item' do
       create(:item)
-      get '/api/v1/items/1'
+      get '/api/v1/items/1.json'
 
       expect(response).to be_success
 
@@ -56,8 +56,8 @@ describe 'Items API' do
       expect(item).to have_key('name')
       expect(item).to have_key('description')
       expect(item).to have_key('image_url')
-      expect(item).to not_have_key('created_at')
-      expect(item).to not_have_key('updated_at')
+      expect(item).to_not have_key('created_at')
+      expect(item).to_not have_key('updated_at')
     end
   end
 end
