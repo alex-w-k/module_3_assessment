@@ -15,12 +15,14 @@ describe 'searching by zipcode' do
       it 'should redirect to "/search?zip=80202" and I should see stores within 25 miles of 80202' do
         visit root_path
 
-        fill_in "search", with: '80202'
-        click_on 'search'
+        within('.search') do
+          fill_in "zip", with: '80202'
+          click_on 'Search'
+        end
 
         expect(current_path).to eq('/search')
         
-        expect(page).to have_selector('.results', count: 17)
+        expect(page).to have_selector('.result', count: 17)
       end
     end
   end
