@@ -1,8 +1,17 @@
 class Store
-  attr_accessor :id, :type, :name
+  attr_accessor :id, :type, :name, :distance, :phone
   def initialize(params)
-    @id = params["storeId"]
     @type = params["storeType"]
-    @name = params["name"]
+    @name = params["longName"]
+    @distance = params["distance"]
+    @phone = params["phone"]
+  end
+
+  def self.search(args)
+    stores = BestBuyApiService.new(args)
+    stores = stores.find
+    stores.map do |store|
+      new(store)
+    end
   end
 end
