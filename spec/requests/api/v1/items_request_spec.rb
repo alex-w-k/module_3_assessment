@@ -24,39 +24,40 @@ require 'rails_helper'
 
 describe 'Items API' do
   context 'GET /api/v1/items' do
-    get '/api/v1/items'
-    create_list(:item, 5)
+    it 'sends all items' do
+      create_list(:item, 5)
+      get '/api/v1/items'
 
-    expect(response).to be_success
+      expect(response).to be_success
 
-    items = JSON.parse(response.body)
-    item = items.first
+      items = JSON.parse(response.body)
+      item = items.first
 
-    expect(items.count).to eq(5)
-    expect(item).to have_key('id')
-    expect(item).to have_key('name')
-    expect(item).to have_key('description')
-    expect(item).to have_key('image_url')
-    expect(item).to not_have_key('created_at')
-    expect(item).to not_have_key('updated_at')
+      expect(items.count).to eq(5)
+      expect(item).to have_key('id')
+      expect(item).to have_key('name')
+      expect(item).to have_key('description')
+      expect(item).to have_key('image_url')
+      expect(item).to not_have_key('created_at')
+      expect(item).to not_have_key('updated_at')
+    end
   end
 
   context 'GET /api/v1/items/1' do
-    get '/api/v1/items/1'
+    it 'sends one item' do
+      create(:item)
+      get '/api/v1/items/1'
 
-    expect(response).to be_success
+      expect(response).to be_success
 
-    item = JSON.parse(response.body)
+      item = JSON.parse(response.body)
 
-    expect(item).to have_key('id')
-    expect(item).to have_key('name')
-    expect(item).to have_key('description')
-    expect(item).to have_key('image_url')
-    expect(item).to not_have_key('created_at')
-    expect(item).to not_have_key('updated_at')
-  end
-
-  context 'DELETE /api/v1/items/1' do
-    response.code.should eql(204)
+      expect(item).to have_key('id')
+      expect(item).to have_key('name')
+      expect(item).to have_key('description')
+      expect(item).to have_key('image_url')
+      expect(item).to not_have_key('created_at')
+      expect(item).to not_have_key('updated_at')
+    end
   end
 end
