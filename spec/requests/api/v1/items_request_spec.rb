@@ -48,14 +48,18 @@ describe 'Items API' do
       response.code.should eql('204')
     end
   end
-# When I send a POST request to `/api/v1/items` with a name, description, and image_url
-# I receive a 201 JSON  response if the record is successfully created
-# And I receive a JSON response containing the id, name, description, and image_url but not the created_at or updated_at
   context 'POST /api/v1/items' do
     it 'adds the items and returns the json of the new item' do
 
-      params = {name: 'new name', description: 'new description', image_url: 'images.network/1.jpg'}
+      params = {item: {name: 'new name', description: 'new description', image_url: 'images.network/1.jpg'}}
       post '/api/v1/items', params.to_json, { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' }
+
+      expect(response).to be_success
+      
+      item = JSON.parse(response.body, symbolize_names: true)
+      expect(item[:name]).to eq('new name')
+      expect(item[:description]).to eq('new description')
+      expect(item[:image_url]).to eq('images.network/1.jpg')
 
     end
   end
