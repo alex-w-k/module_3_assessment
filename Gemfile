@@ -15,6 +15,7 @@ gem "therubyracer"
 gem "less-rails-bootstrap"
 gem "minitest-rails"
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'faraday'
 
 group :development do
   gem "spring"

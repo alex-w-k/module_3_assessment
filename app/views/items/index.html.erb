@@ -1,6 +1,11 @@
 <div class="container">
   <div class="search row">
-    search bar goes here
+    <%=form_tag("/search", method: :get) do%>
+      <%= hidden_field_tag "radius", '25' %>
+      <%= text_field_tag (:zip) %>
+      <%= label_tag "search", "Find Stores Nearby" %>
+      <%= submit_tag "Search", class: 'btn btn-primary' %>
+    <%end%>
   </div>
   <div class="row">
     <div class="col-sm-12">
