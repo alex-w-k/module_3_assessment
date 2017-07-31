@@ -1,5 +1,5 @@
 class Store
-  attr_accessor :id, :type, :name, :distance, :phone
+  attr_accessor :type, :name, :distance, :phone
   def initialize(params)
     @type = params["storeType"]
     @name = params["longName"]
