@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   def show
-    @stores = Store.search(search_params)
+    @stores = Store.search(search_params).paginate(params[:page], 10)
   end
 
   private
