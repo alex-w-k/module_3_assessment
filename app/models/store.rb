@@ -10,7 +10,6 @@ class Store
   def self.search(args)
     stores = BestBuyApiService.search(args)
     stores.map do |store|
-      binding.pry
       new(store)
     end
   end
