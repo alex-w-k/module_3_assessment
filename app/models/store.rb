@@ -8,9 +8,9 @@ class Store
   end
 
   def self.search(args)
-    stores = BestBuyApiService.new(args)
-    stores = stores.find
+    stores = BestBuyApiService.search(args)
     stores.map do |store|
+      binding.pry
       new(store)
     end
   end
