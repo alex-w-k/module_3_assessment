@@ -13,18 +13,20 @@ describe 'searching by zipcode' do
   context 'When I visit /' do
     context 'and I fill in a searchox with "80202" and click "search"' do
       it 'should redirect to "/search?zip=80202" and I should see 17 total stores within 25 miles of 80202 and 10 on the first page' do
-        visit root_path
+        VCR.use_cassette('best_buy_feature_search_v2') do
+          visit root_path
 
-        within('.search') do
-          fill_in "zip", with: '80202'
-          click_on 'Search'
+          within('.search') do
+            fill_in "zip", with: '80202'
+            click_on 'Search'
+          end
+
+          expect(current_path).to eq('/search')
+          
+          expect(page).to have_selector('.result', count: 10)
+          click_on 'Next →'
+          expect(page).to have_selector('.result', count: 7)
         end
-
-        expect(current_path).to eq('/search')
-        
-        expect(page).to have_selector('.result', count: 10)
-        click_on 'Next →'
-        expect(page).to have_selector('.result', count: 7)
       end
     end
   end

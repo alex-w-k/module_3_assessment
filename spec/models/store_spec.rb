@@ -2,11 +2,13 @@ require 'rails_helper'
 
 describe 'Store PORO' do
   before(:each) do
-    @store = Store.new("longName"=>"Cherry Creek Shopping Center",
-              "city"=>"Denver",
-              "distance"=>3.45,
-              "phone"=>"303-270-9189",
-              "storeType"=>"Mobile SAS")
+    VCR.use_cassette('best_buy_model') do
+      @store = Store.new("longName"=>"Cherry Creek Shopping Center",
+                "city"=>"Denver",
+                "distance"=>3.45,
+                "phone"=>"303-270-9189",
+                "storeType"=>"Mobile SAS")
+    end
   end
   it 'has a type' do
     expect(@store.type).to eq('Mobile SAS')
@@ -25,9 +27,10 @@ describe 'Store PORO' do
   end
 
   it 'can search' do
-    stores = Store.search({zip: 80202})
+    VCR.use_cassette('best_buy_model') do
+      stores = Store.search({zip: 80202})
 
-    expect(stores.length).to eq(17)
-    
+      expect(stores.length).to eq(17)
+    end
   end
 end
