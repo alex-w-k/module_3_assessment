@@ -10,7 +10,7 @@ class BestBuyApiService
   end
 
   def find_stores
-    response = @conn.get("/v1/stores(area(#{zip},25))?format=json&show=longName,city,distance,phone,storeType&pageSize=20&apiKey=#{ENV['BEST_BUY_API_KEY']}")
+    response = @conn.get("/v1/stores(area(#{zip},25))?format=json&show=longName,city,distance,phone,storeType&pageSize=50&apiKey=#{ENV['BEST_BUY_API_KEY']}")
     JSON.parse(response.body)["stores"]
   end
 
