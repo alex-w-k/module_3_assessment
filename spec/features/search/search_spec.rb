@@ -12,7 +12,7 @@ require 'rails_helper'
 describe 'searching by zipcode' do
   context 'When I visit /' do
     context 'and I fill in a searchox with "80202" and click "search"' do
-      it 'should redirect to "/search?zip=80202" and I should see stores within 25 miles of 80202' do
+      it 'should redirect to "/search?zip=80202" and I should see 17 total stores within 25 miles of 80202 and 10 on the first page' do
         visit root_path
 
         within('.search') do
@@ -22,7 +22,9 @@ describe 'searching by zipcode' do
 
         expect(current_path).to eq('/search')
         
-        expect(page).to have_selector('.result', count: 17)
+        expect(page).to have_selector('.result', count: 10)
+        click_on 'Next →'
+        expect(page).to have_selector('.result', count: 7)
       end
     end
   end
