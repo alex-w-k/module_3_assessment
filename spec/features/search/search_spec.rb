@@ -24,6 +24,10 @@ describe 'searching by zipcode' do
           expect(current_path).to eq('/search')
           
           expect(page).to have_selector('.result', count: 10)
+          expect(page).to have_content('Name:')
+          expect(page).to have_content('Type:')
+          expect(page).to have_content('Distance:')
+          expect(page).to have_content('Phone:')
           click_on 'Next →'
           expect(page).to have_selector('.result', count: 7)
         end
